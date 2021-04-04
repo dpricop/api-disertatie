@@ -1,7 +1,9 @@
+using ApiDisertatie.DataLayer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -27,11 +29,30 @@ namespace ApiDisertatie
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ApiDisertatie", Version = "v1" });
-            });
+            services
+                .AddControllers()
+                .AddJsonOptions(options => {
+                    options.JsonSerializerOptions.PropertyNamingPolicy = null;
+                    options.JsonSerializerOptions.WriteIndented = true;
+                    options.JsonSerializerOptions.IgnoreNullValues = false;
+                });
+
+            //services.AddSwaggerGen(c =>
+            //{
+            //    c.SwaggerDoc("v1", new OpenApiInfo { Title = "ApiDisertatie", Version = "v1" });
+            //});
+
+            var dbConnString = Configuration.GetConnectionString("Database");
+
+            services
+                .AddDbContext<DatabaseContext>(options =>
+                {
+                    options.UseLazyLoadingProxies();
+                    options.UseNpgsql(dbConnString);
+                    options.EnableSensitiveDataLogging();
+                },
+                ServiceLifetime.Scoped);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,7 +64,6 @@ namespace ApiDisertatie
             }
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
