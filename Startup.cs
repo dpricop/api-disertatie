@@ -31,11 +31,12 @@ namespace ApiDisertatie
 
             services
                 .AddControllers()
-                .AddJsonOptions(options => {
-                    options.JsonSerializerOptions.PropertyNamingPolicy = null;
-                    options.JsonSerializerOptions.WriteIndented = true;
-                    options.JsonSerializerOptions.IgnoreNullValues = false;
-                });
+                .AddJsonOptions(options =>
+                 {
+                     options.JsonSerializerOptions.PropertyNamingPolicy = null;
+                     options.JsonSerializerOptions.WriteIndented = true;
+                     options.JsonSerializerOptions.IgnoreNullValues = false;
+                 });
 
             //services.AddSwaggerGen(c =>
             //{
@@ -52,12 +53,13 @@ namespace ApiDisertatie
                     options.EnableSensitiveDataLogging();
                 },
                 ServiceLifetime.Scoped);
-
+            services.AddScoped(serviceType: typeof(GenericRepository<>), implementationType: typeof(GenericRepository<>));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

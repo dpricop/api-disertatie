@@ -17,7 +17,7 @@ namespace ApiDisertatie.DataLayer
 
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options) 
         {
-        
+
         }
 
         public virtual DbSet<AppUtilizatori> AppUtilizatori { get; set; }
@@ -40,7 +40,6 @@ namespace ApiDisertatie.DataLayer
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
