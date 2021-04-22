@@ -9,12 +9,10 @@ namespace ApiDisertatie.DataLayer
 {
     public partial class DatabaseContext : DbContext
     {
-
         public DatabaseContext()
         {
 
         }
-
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options) 
         {
 
@@ -161,10 +159,6 @@ namespace ApiDisertatie.DataLayer
                     .IsUnique();
 
                 entity.Property(e => e.IdJudet).HasColumnName("id_judet");
-
-                entity.Property(e => e.CodJudet)
-                    .HasMaxLength(5)
-                    .HasColumnName("cod_judet");
 
                 entity.Property(e => e.InDate)
                     .HasColumnType("timestamp(6) without time zone")

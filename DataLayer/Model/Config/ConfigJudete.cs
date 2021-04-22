@@ -13,7 +13,6 @@ namespace ApiDisertatie.DataLayer.Models
 
         public int IdJudet { get; set; }
         public string NumeJudet { get; set; }
-        public string CodJudet { get; set; }
         public int? TaraId { get; set; }
         public string InUserId { get; set; }
         public DateTime? InDate { get; set; }
