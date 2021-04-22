@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using ApiDisertatie.DataLayer;
+using ApiDisertatie.DataLayer.UnitOfWork;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,79 +11,42 @@ namespace ApiDisertatie.Controllers
 {
     public class ConfigGrupeController : Controller
     {
-        // GET: ConfigGrupeController
-        public ActionResult Index()
-        {
-            return View();
-        }
+        private readonly AppUnitOfWork appUnitOfWork;
 
+        public ConfigGrupeController(IUnitOfWork unitOfWork)
+        {
+            appUnitOfWork = unitOfWork as AppUnitOfWork;
+        }
         // GET: ConfigGrupeController/Details/5
-        public ActionResult Details(int id)
+        public object Get()
         {
-            return View();
+            return Ok("GET");
         }
 
-        // GET: ConfigGrupeController/Create
-        public ActionResult Create()
+        public object DropDown()
         {
-            return View();
+            var result = appUnitOfWork.configGrupeRepo.GetAllDropDown();
+            return Json(result);
         }
 
-        // POST: ConfigGrupeController/Create
+        [ValidateAntiForgeryToken]
+        public object Create(IFormCollection collection)
+        {
+            return Ok("Create");
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public object Edit(int id, IFormCollection collection)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return Ok("Edit");
         }
 
-        // GET: ConfigGrupeController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: ConfigGrupeController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public object Delete(int id, IFormCollection collection)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: ConfigGrupeController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: ConfigGrupeController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return Ok("Delete");
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using ApiDisertatie.DataLayer;
+using ApiDisertatie.DataLayer.UnitOfWork;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,79 +11,41 @@ namespace ApiDisertatie.Controllers
 {
     public class ConfigLocalitatiController : Controller
     {
-        // GET: ConfigLocalitatiController
-        public ActionResult Index()
+        private readonly AppUnitOfWork appUnitOfWork;
+        public ConfigLocalitatiController(IUnitOfWork unitOfWork)
         {
-            return View();
+            appUnitOfWork = unitOfWork as AppUnitOfWork;
         }
 
-        // GET: ConfigLocalitatiController/Details/5
-        public ActionResult Details(int id)
+        public object Get()
         {
-            return View();
+            return Ok("GET");
         }
 
-        // GET: ConfigLocalitatiController/Create
-        public ActionResult Create()
+        public object DropDown()
         {
-            return View();
+            var result = appUnitOfWork.configLocalitatiRepo.GetAllDropDown();
+            return Json(result);
         }
 
-        // POST: ConfigLocalitatiController/Create
+        [ValidateAntiForgeryToken]
+        public object Create(IFormCollection collection)
+        {
+            return Ok("Create");
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public object Edit(int id, IFormCollection collection)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return Ok("Edit");
         }
 
-        // GET: ConfigLocalitatiController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: ConfigLocalitatiController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public object Delete(int id, IFormCollection collection)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: ConfigLocalitatiController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: ConfigLocalitatiController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return Ok("Delete");
         }
     }
 }

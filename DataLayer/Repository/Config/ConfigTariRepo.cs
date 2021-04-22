@@ -1,6 +1,7 @@
 ﻿using ApiDisertatie.DataLayer.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ApiDisertatie.DataLayer.Repository
 {
@@ -11,6 +12,11 @@ namespace ApiDisertatie.DataLayer.Repository
         public ConfigTariRepo(DatabaseContext context) : base(context)
         {
             dbContext = context;
+        }
+
+        public virtual IQueryable<ConfigTariDropDown> GetAllDropDown()
+        {
+            return this.GetAll().Select(s => new ConfigTariDropDown() { IdTara = s.IdTara, NumeTara = s.NumeTara}).AsQueryable();
         }
     }
 }
