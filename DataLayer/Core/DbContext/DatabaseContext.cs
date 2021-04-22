@@ -259,14 +259,6 @@ namespace ApiDisertatie.DataLayer
                     .HasColumnName("in_user_id")
                     .HasDefaultValueSql("\"current_user\"()");
 
-                entity.Property(e => e.IsActivm)
-                    .HasColumnName("is_activm")
-                    .HasDefaultValueSql("true");
-
-                entity.Property(e => e.IsDefault)
-                    .HasColumnName("is_default")
-                    .HasDefaultValueSql("false");
-
                 entity.Property(e => e.ModDate)
                     .HasColumnType("timestamp(6) without time zone")
                     .HasColumnName("mod_date");
@@ -278,10 +270,6 @@ namespace ApiDisertatie.DataLayer
                 entity.Property(e => e.Moneda)
                     .HasMaxLength(5)
                     .HasColumnName("moneda");
-
-                entity.Property(e => e.Multiplicator)
-                    .HasColumnName("multiplicator")
-                    .HasDefaultValueSql("1");
 
                 entity.Property(e => e.Symbol)
                     .HasMaxLength(5)

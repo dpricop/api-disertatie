@@ -15,9 +15,6 @@ namespace ApiDisertatie.DataLayer.Models
         public string Moneda { get; set; }
         public double? CursValutar { get; set; }
         public DateTime? DataCurs { get; set; }
-        public bool? IsActivm { get; set; }
-        public double? Multiplicator { get; set; }
-        public bool? IsDefault { get; set; }
         public string Symbol { get; set; }
         public string InUserId { get; set; }
         public DateTime? InDate { get; set; }
