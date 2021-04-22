@@ -31,6 +31,12 @@ namespace ApiDisertatie
 
             services
                 .AddControllers()
+                .AddNewtonsoftJson(options =>
+                {
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                    options.SerializerSettings.Formatting = Newtonsoft.Json.Formatting.Indented;
+                    options.UseMemberCasing();
+                })
                 .AddJsonOptions(options =>
                  {
                      options.JsonSerializerOptions.PropertyNamingPolicy = null;
