@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ApiDisertatie.DataLayer
+namespace ApiDisertatie.DataLayer.Repository
 {
-    public partial class GenericRepository<T> where T : class
+    public partial class GenericRepository<T> : IRepository<T> where T : class
     {
         private readonly DatabaseContext _dbContext;
         private readonly DbSet<T> _dbSet;
@@ -23,7 +23,6 @@ namespace ApiDisertatie.DataLayer
         {
             return _dbSet;
         }
-
         public virtual IQueryable<T> GetAllByPage(int skip, int take)
         {
             return _dbSet.Skip(skip).Take(take).AsQueryable();
@@ -33,25 +32,27 @@ namespace ApiDisertatie.DataLayer
         {
             return _dbSet.Find(id);
         }
-
-        public int Add(T entity)
+        public int Count()
         {
-            _dbSet.Add(entity);
-            return _dbContext.SaveChanges();
+            return _dbSet.Count();
         }
 
-        public int Update(T entity)
+        public void Add(T entity)
+        {
+            _dbSet.Add(entity);
+        }
+
+        public void Update(T entity)
         {
             _dbSet.Attach(entity);
             _dbContext.Entry(entity).State = EntityState.Modified;
-            return _dbContext.SaveChanges();
         }
 
-        public int Delete(T entity)
+        public void Delete(T entity)
         {
             _dbSet.Remove(entity);
-            return _dbContext.SaveChanges();
         }
+
         #endregion
     }
 }
