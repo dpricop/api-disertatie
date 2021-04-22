@@ -1,4 +1,6 @@
 using ApiDisertatie.DataLayer;
+using ApiDisertatie.DataLayer.Repository;
+using ApiDisertatie.DataLayer.UnitOfWork;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -59,7 +61,8 @@ namespace ApiDisertatie
                     options.EnableSensitiveDataLogging();
                 },
                 ServiceLifetime.Scoped);
-            services.AddScoped(serviceType: typeof(GenericRepository<>), implementationType: typeof(GenericRepository<>));
+            services.AddScoped(serviceType: typeof(IUnitOfWork), implementationType: typeof(AppUnitOfWork));
+            services.AddScoped(serviceType: typeof(IRepository<>), implementationType: typeof(GenericRepository<>));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
