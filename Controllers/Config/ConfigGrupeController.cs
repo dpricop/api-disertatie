@@ -20,7 +20,8 @@ namespace ApiDisertatie.Controllers
         // GET: ConfigGrupeController/Details/5
         public object Get()
         {
-            return Ok("GET");
+            var result = appUnitOfWork.configGrupeRepo.GetAllTable();
+            return Json(result);
         }
 
         public object DropDown()

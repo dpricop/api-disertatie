@@ -19,7 +19,8 @@ namespace ApiDisertatie.Controllers
         }
         public object Get()
         {
-            return Ok("GET");
+            var result = appUnitOfWork.configTariRepo.GetAllTable();
+            return Json(result);
         }
 
         public object DropDown()

@@ -18,5 +18,17 @@ namespace ApiDisertatie.DataLayer.Repository
         {
             return this.GetAll().Select(s => new ConfigUmDropDown() { IdUm = s.IdUm, Um = s.Um }).AsQueryable();
         }
+
+        public IQueryable<ConfigUmTable> GetAllTable()
+        {
+            return this.GetAll().Select(s => new ConfigUmTable() { 
+                IdUm = s.IdUm,
+                Um = s.Um,
+                InUserId = s.InUserId,
+                InDate = s.InDate,
+                ModUserId = s.ModUserId,
+                ModDate = s.ModDate
+            }).AsQueryable();
+        }
     }
 }

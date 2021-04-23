@@ -20,7 +20,8 @@ namespace ApiDisertatie.Controllers
 
         public object Get()
         {
-            return Ok("GET");
+            var result = appUnitOfWork.configMotiveRepo.GetAllTable();
+            return Json(result);
         }
 
         public object DropDown()

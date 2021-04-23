@@ -18,5 +18,19 @@ namespace ApiDisertatie.DataLayer.Repository
         {
             return this.GetAll().Select(s => new ConfigMotiveDropDown() { IdMotiv = s.IdMotiv, Motiv = s.Motiv}).AsQueryable();
         }
+        public IQueryable<ConfigMotiveTable> GetAllTable()
+        {
+            return this.GetAll().Select(s => new ConfigMotiveTable() { 
+                IdMotiv = s.IdMotiv, 
+                Motiv = s.Motiv,
+                EMotivLead = s.EMotivLead,
+                EMotivOpportunity = s.EMotivOpportunity,
+                InUserId = s.InUserId,
+                InDate = s.InDate,
+                ModUserId = s.ModUserId,
+                ModDate = s.ModDate
+
+            }).AsQueryable();
+        }
     }
 }

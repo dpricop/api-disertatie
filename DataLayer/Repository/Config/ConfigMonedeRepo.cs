@@ -17,5 +17,19 @@ namespace ApiDisertatie.DataLayer.Repository
         {
             return this.GetAll().Select(s => new ConfigMonedeDropDown() { IdMoneda = s.IdMoneda, Moneda = s.Moneda}).AsQueryable();
         }
+        public IQueryable<ConfigMonedeTable> GetAllTable()
+        {
+            return this.GetAll().Select(s => new ConfigMonedeTable() {
+                IdMoneda = s.IdMoneda,
+                Moneda = s.Moneda,
+                CursValutar = s.CursValutar,
+                DataCurs = s.DataCurs,
+                Symbol = s.Symbol,
+                InUserId = s.InUserId,
+                InDate = s.InDate,
+                ModUserId = s.ModUserId,
+                ModDate = s.ModDate
+            }).AsQueryable();
+        }
     }
 }

@@ -18,5 +18,18 @@ namespace ApiDisertatie.DataLayer.Repository
         {
             return this.GetAll().Select(s => new ConfigGrupeDropDown() {IdGrupa = s.IdGrupa, Grupa = s.Grupa }).AsQueryable();
         }
+
+        public virtual IQueryable<ConfigGrupeTable> GetAllTable()
+        {
+            return this.GetAll().Select(s => new ConfigGrupeTable() {
+                IdGrupa = s.IdGrupa,
+                Grupa = s.Grupa,
+                InUserId = s.InUserId,
+                InDate = s.InDate,
+                ModUserId = s.ModUserId,
+                ModDate = s.ModDate
+
+            }).AsQueryable();
+        }
     }
 }

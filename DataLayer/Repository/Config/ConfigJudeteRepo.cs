@@ -18,5 +18,19 @@ namespace ApiDisertatie.DataLayer.Repository
         {
             return this.GetAll().Select(s => new ConfigJudeteDropDown() { IdJudet = s.IdJudet, NumeJudet = s.NumeJudet}).AsQueryable();
         }
+
+        public IQueryable<ConfigJudeteTable> GetAllTable()
+        {
+            return this.GetAll().Select(s => new ConfigJudeteTable() { 
+                IdJudet = s.IdJudet,
+                NumeJudet = s.NumeJudet,
+                TaraId = s.TaraId,
+                InUserId = s.InUserId,
+                InDate = s.InDate,
+                ModUserId = s.ModUserId,
+                ModDate = s.ModDate
+
+            }).AsQueryable();
+        }
     }
 }
