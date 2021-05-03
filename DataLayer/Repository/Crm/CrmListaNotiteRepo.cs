@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace ApiDisertatie.DataLayer.Repository
 {
-    public partial class CrmListaNotiteRepo : GenericRepository<CrmOpportunityFaza>
+    public partial class CrmListaNotiteRepo : GenericRepository<CrmListaNotite>
     {
         private readonly DatabaseContext dbContext;
 
