@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using ApiDisertatie.DataLayer;
+using ApiDisertatie.DataLayer.UnitOfWork;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,79 +11,43 @@ namespace ApiDisertatie.Controllers
 {
     public class CrmOpportunityFazaController : Controller
     {
-        // GET: CrmOpportunityFazaController
-        public ActionResult Index()
+        private readonly AppUnitOfWork appUnitOfWork;
+
+        public CrmOpportunityFazaController(IUnitOfWork unitOfWork)
         {
-            return View();
+            appUnitOfWork = unitOfWork as AppUnitOfWork;
         }
 
-        // GET: CrmOpportunityFazaController/Details/5
-        public ActionResult Details(int id)
+        public object Get()
         {
-            return View();
+            var result = appUnitOfWork.crmOpportunityFazaRepo.GetAllTable();
+            return Json(result);
         }
 
-        // GET: CrmOpportunityFazaController/Create
-        public ActionResult Create()
+        public object DropDown()
         {
-            return View();
+            var result = appUnitOfWork.crmOpportunityFazaRepo.GetAllDropDown();
+            return Json(result);
         }
 
-        // POST: CrmOpportunityFazaController/Create
+        [ValidateAntiForgeryToken]
+        public object Create(IFormCollection collection)
+        {
+            return Ok("Create");
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public object Edit(int id, IFormCollection collection)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return Ok("Edit");
         }
 
-        // GET: CrmOpportunityFazaController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: CrmOpportunityFazaController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public object Delete(int id, IFormCollection collection)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: CrmOpportunityFazaController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: CrmOpportunityFazaController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return Ok("Delete");
         }
     }
 }
