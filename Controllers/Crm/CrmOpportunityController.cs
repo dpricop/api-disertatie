@@ -43,11 +43,27 @@ namespace ApiDisertatie.Controllers
             return Ok("Edit");
         }
 
-        [HttpPost]
+        [HttpDelete]
         [ValidateAntiForgeryToken]
-        public object Delete(int id, IFormCollection collection)
+        public object Delete(int id)
         {
-            return Ok("Delete");
+            var opportunity = appUnitOfWork.crmOpportunityRepo.GetById(id);
+
+            if (opportunity == null)
+                return Json(new { status = 0, count = 0 });
+
+            try
+            {
+                appUnitOfWork.crmOpportunityRepo.Delete(opportunity);
+                appUnitOfWork.SaveChanges();
+
+                return Json(new { status = 1, count = 1 });
+            }
+            catch (Exception e)
+            {
+                //TODO - nlog e.Message !
+                return Json(new { status = 0, count = 0, message = e.Message });
+            }
         }
     }
 }
