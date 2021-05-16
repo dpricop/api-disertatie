@@ -1,7 +1,9 @@
 ﻿using ApiDisertatie.DataLayer;
+using ApiDisertatie.DataLayer.Models;
 using ApiDisertatie.DataLayer.UnitOfWork;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,17 +31,51 @@ namespace ApiDisertatie.Controllers
             return Json(result);
         }
 
-        [ValidateAntiForgeryToken]
-        public object Create(IFormCollection collection)
-        {
-            return Ok("Create");
-        }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public object Edit(int id, IFormCollection collection)
+        public object Create(string values)
         {
-            return Ok("Edit");
+            var configTari = new ConfigTari();
+            JsonConvert.PopulateObject(values, configTari);
+
+            if (!TryValidateModel(configTari))
+                return BadRequest(ModelState.IsValid);
+
+            try
+            {
+                appUnitOfWork.configTariRepo.Add(configTari);
+                appUnitOfWork.SaveChanges();
+                return Json(new { status = 1, count = 1 });
+            }
+            catch (Exception ex)
+            {
+                //TODO - nlog.e.Message!
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut]
+        [ValidateAntiForgeryToken]
+        public object Edit(int id, string values)
+        {
+            var configTara = appUnitOfWork.configTariRepo.GetById(id);
+            JsonConvert.PopulateObject(values, configTara);
+
+            configTara.ModDate = DateTime.Now;
+
+            if (!TryValidateModel(configTara))
+                return BadRequest(ModelState.IsValid);
+
+            try
+            {
+                appUnitOfWork.SaveChanges();
+                return Json(new { status = 1, count = 1 });
+            }
+            catch (Exception ex)
+            {
+                //TODO - nlog e.Message !
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete]
