@@ -1,7 +1,9 @@
 ﻿using ApiDisertatie.DataLayer;
+using ApiDisertatie.DataLayer.Models;
 using ApiDisertatie.DataLayer.UnitOfWork;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,17 +32,52 @@ namespace ApiDisertatie.Controllers
             return Json(result);
         }
 
-        [ValidateAntiForgeryToken]
-        public object Create(IFormCollection collection)
-        {
-            return Ok("Create");
-        }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public object Edit(int id, IFormCollection collection)
+        public object Create(string values)
         {
-            return Ok("Edit");
+            var partenerContact = new CrmPartenerContacte();
+            JsonConvert.PopulateObject(values, partenerContact);
+
+            if (!TryValidateModel(partenerContact))
+                return BadRequest(ModelState.IsValid);
+
+            try
+            {
+                appUnitOfWork.crmPartenerContacteRepo.Add(partenerContact);
+                appUnitOfWork.SaveChanges();
+                return Json(new { status = 1, count = 1 });
+            }
+            catch (Exception ex)
+            {
+                //TODO - nlog.e.Message!
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut]
+        [ValidateAntiForgeryToken]
+        public object Edit(int id, string values)
+        {
+            var partenerContact = appUnitOfWork.crmPartenerContacteRepo.GetById(id);
+            //TODO CHECK if partenerContact is null 
+            JsonConvert.PopulateObject(values, partenerContact);
+
+            partenerContact.ModDate = DateTime.Now;
+
+            if (!TryValidateModel(partenerContact))
+                return BadRequest(ModelState.IsValid);
+
+            try
+            {
+                appUnitOfWork.SaveChanges();
+                return Json(new { status = 1, count = 1 });
+            }
+            catch (Exception ex)
+            {
+                //TODO - nlog e.Message !
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete]

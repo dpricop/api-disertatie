@@ -1,7 +1,9 @@
 ﻿using ApiDisertatie.DataLayer;
+using ApiDisertatie.DataLayer.Models;
 using ApiDisertatie.DataLayer.UnitOfWork;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,17 +33,51 @@ namespace ApiDisertatie.Controllers
             return Json(result);
         }
 
-        [ValidateAntiForgeryToken]
-        public object Create(IFormCollection collection)
-        {
-            return Ok("Create");
-        }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public object Edit(int id, IFormCollection collection)
+        public object Create(string values)
         {
-            return Ok("Edit");
+            var articol = new CrmArticole();
+            JsonConvert.PopulateObject(values, articol);
+
+            if (!TryValidateModel(articol))
+                return BadRequest(ModelState.IsValid);
+
+            try
+            {
+                appUnitOfWork.crmArticoleRepo.Add(articol);
+                appUnitOfWork.SaveChanges();
+                return Json(new { status = 1, count = 1 });
+            }
+            catch (Exception ex)
+            {
+                //TODO - nlog.e.Message!
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut]
+        [ValidateAntiForgeryToken]
+        public object Edit(int id, string values)
+        {
+            var articol = appUnitOfWork.crmArticoleRepo.GetById(id);
+            JsonConvert.PopulateObject(values, articol);
+
+            articol.ModDate = DateTime.Now;
+
+            if (!TryValidateModel(articol))
+                return BadRequest(ModelState.IsValid);
+
+            try
+            {
+                appUnitOfWork.SaveChanges();
+                return Json(new { status = 1, count = 1 });
+            }
+            catch (Exception ex)
+            {
+                //TODO - nlog e.Message !
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete]
