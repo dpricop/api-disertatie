@@ -22,9 +22,6 @@ namespace ApiDisertatie.DataLayer.Repository
             return this.GetAll().Select(s => new ConfigMonedeTable() {
                 IdMoneda = s.IdMoneda,
                 Moneda = s.Moneda,
-                CursValutar = s.CursValutar,
-                DataCurs = s.DataCurs,
-                Symbol = s.Symbol,
                 InUserId = s.InUserId,
                 InDate = s.InDate,
                 ModUserId = s.ModUserId,

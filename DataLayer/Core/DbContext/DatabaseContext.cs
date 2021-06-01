@@ -241,14 +241,6 @@ namespace ApiDisertatie.DataLayer
 
                 entity.Property(e => e.IdMoneda).HasColumnName("id_moneda");
 
-                entity.Property(e => e.CursValutar)
-                    .HasColumnName("curs_valutar")
-                    .HasDefaultValueSql("0");
-
-                entity.Property(e => e.DataCurs)
-                    .HasColumnType("timestamp(6) without time zone")
-                    .HasColumnName("data_curs");
-
                 entity.Property(e => e.InDate)
                     .HasColumnType("timestamp(6) without time zone")
                     .HasColumnName("in_date")
@@ -270,10 +262,6 @@ namespace ApiDisertatie.DataLayer
                 entity.Property(e => e.Moneda)
                     .HasMaxLength(5)
                     .HasColumnName("moneda");
-
-                entity.Property(e => e.Symbol)
-                    .HasMaxLength(5)
-                    .HasColumnName("symbol");
             });
 
             modelBuilder.Entity<ConfigMotive>(entity =>

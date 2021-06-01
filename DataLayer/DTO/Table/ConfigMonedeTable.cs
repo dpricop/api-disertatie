@@ -8,9 +8,6 @@ namespace ApiDisertatie.DataLayer.Models
     {
         public int IdMoneda { get; set; }
         public string Moneda { get; set; }
-        public double? CursValutar { get; set; }
-        public DateTime? DataCurs { get; set; }
-        public string Symbol { get; set; }
         public string InUserId { get; set; }
         public DateTime? InDate { get; set; }
         public string ModUserId { get; set; }
