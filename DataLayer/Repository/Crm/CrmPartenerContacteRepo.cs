@@ -23,11 +23,12 @@ namespace ApiDisertatie.DataLayer.Repository
             }).AsQueryable();
         }
 
-        public virtual IQueryable<CrmPartenerContacte> GetAllTable()
+        public virtual IQueryable<CrmPartenerContacteTable> GetAllTable()
         {
-            return this.GetAll().Select(s => new CrmPartenerContacte() {
+            return this.GetAll().Select(s => new CrmPartenerContacteTable() {
                 IdPartenerContact = s.IdPartenerContact,
                 PartenerId = s.PartenerId,
+                NumePartener = s.Partener.NumePartener,
                 NumeContact = s.NumeContact,
                 PrenumeContact = s.PrenumeContact,
                 Telefon = s.Telefon,
@@ -37,7 +38,7 @@ namespace ApiDisertatie.DataLayer.Repository
                 InUserId = s.InUserId,
                 InDate = s.InDate,
                 ModUserId = s.ModUserId,
-                ModDate = s.ModDate
+                ModDate = s.ModDate,
             });
         }
     }
