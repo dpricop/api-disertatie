@@ -25,6 +25,7 @@ namespace ApiDisertatie.DataLayer.Repository
                 IdJudet = s.IdJudet,
                 NumeJudet = s.NumeJudet,
                 TaraId = s.TaraId,
+                NumeTara = s.Tara.NumeTara,
                 InUserId = s.InUserId,
                 InDate = s.InDate,
                 ModUserId = s.ModUserId,

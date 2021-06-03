@@ -24,6 +24,7 @@ namespace ApiDisertatie.DataLayer.Repository
                 IdLocalitate = s.IdLocalitate,
                 NumeLocalitate = s.NumeLocalitate,
                 JudetId = s.JudetId,
+                NumeJudet = s.Judet.NumeJudet,
                 InUserId = s.InUserId,
                 InDate = s.InDate,
                 ModUserId = s.ModUserId,
