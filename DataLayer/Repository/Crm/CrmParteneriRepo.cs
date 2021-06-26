@@ -40,20 +40,13 @@ namespace ApiDisertatie.DataLayer.Repository
                 Adresa = s.Adresa,
                 CodPostal = s.CodPostal,
                 Platitortva = s.Platitortva,
-                Dataplatitortva = s.Dataplatitortva,
-                Dataverif = s.Dataverif,
                 TvaIncasare = s.TvaIncasare,
-                DataTvaincasare = s.DataTvaincasare,
-                DataverifTvainc = s.DataverifTvainc,
-                ValidatVs = s.ValidatVs,
-                DataVerifVs = s.DataVerifVs,
                 InUserId = s.InUserId,
                 InDate = s.InDate,
                 ModUserId = s.ModUserId,
                 ModDate = s.ModDate
-
-    }).AsQueryable();
+            }).AsQueryable();
         }
-    }
 
+    }
 }

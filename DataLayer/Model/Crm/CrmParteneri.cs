@@ -27,13 +27,7 @@ namespace ApiDisertatie.DataLayer.Models
         public string Adresa { get; set; }
         public string CodPostal { get; set; }
         public bool? Platitortva { get; set; }
-        public DateTime? Dataplatitortva { get; set; }
-        public DateTime? Dataverif { get; set; }
         public bool? TvaIncasare { get; set; }
-        public DateTime? DataTvaincasare { get; set; }
-        public DateTime? DataverifTvainc { get; set; }
-        public bool? ValidatVs { get; set; }
-        public DateTime? DataVerifVs { get; set; }
         public string InUserId { get; set; }
         public DateTime? InDate { get; set; }
         public string ModUserId { get; set; }

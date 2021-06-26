@@ -858,16 +858,6 @@ namespace ApiDisertatie.DataLayer
                     .HasMaxLength(50)
                     .HasColumnName("cod_postal");
 
-                entity.Property(e => e.DataTvaincasare).HasColumnName("data_tvaincasare");
-
-                entity.Property(e => e.DataVerifVs).HasColumnName("data_verif_vs");
-
-                entity.Property(e => e.Dataplatitortva).HasColumnName("dataplatitortva");
-
-                entity.Property(e => e.Dataverif).HasColumnName("dataverif");
-
-                entity.Property(e => e.DataverifTvainc).HasColumnName("dataverif_tvainc");
-
                 entity.Property(e => e.InDate)
                     .HasColumnType("timestamp(6) without time zone")
                     .HasColumnName("in_date")
@@ -914,10 +904,6 @@ namespace ApiDisertatie.DataLayer
 
                 entity.Property(e => e.TvaIncasare)
                     .HasColumnName("tva_incasare")
-                    .HasDefaultValueSql("false");
-
-                entity.Property(e => e.ValidatVs)
-                    .HasColumnName("validat_vs")
                     .HasDefaultValueSql("false");
 
                 entity.HasOne(d => d.Judet)
