@@ -14,8 +14,8 @@ namespace ApiDisertatie.DataLayer.Models
         public string Telefon { get; set; }
         public bool? HotOrNot { get; set; }
         public string NoteSursa { get; set; }
-        public string ContactFirstname { get; set; }
-        public string ContactLastname { get; set; }
+        public string ContactNume{ get; set; }
+        public string ContactPrenume { get; set; }
         public int? LeadStatusId { get; set; }
         public int? PartenerId { get; set; }
         public bool? ECalificat { get; set; }

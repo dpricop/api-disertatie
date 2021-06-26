@@ -471,9 +471,9 @@ namespace ApiDisertatie.DataLayer
                     .HasMaxLength(25)
                     .HasColumnName("cod_fiscal");
 
-                entity.Property(e => e.ContactFirstname).HasColumnName("contact_firstname");
+                entity.Property(e => e.ContactNume).HasColumnName("contact_nume");
 
-                entity.Property(e => e.ContactLastname).HasColumnName("contact_lastname");
+                entity.Property(e => e.ContactPrenume).HasColumnName("contact_prenume");
 
                 entity.Property(e => e.ECalificat)
                     .HasColumnName("e_calificat")
