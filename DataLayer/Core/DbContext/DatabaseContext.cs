@@ -35,6 +35,10 @@ namespace ApiDisertatie.DataLayer
         public virtual DbSet<CrmOpportunityStatus> CrmOpportunityStatus { get; set; }
         public virtual DbSet<CrmPartenerContacte> CrmPartenerContacte { get; set; }
         public virtual DbSet<CrmParteneri> CrmParteneri { get; set; }
+        public virtual DbSet<CrmActiuni> CrmActiuni { get; set; }
+        public virtual DbSet<CrmOferteAntent> CrmOferteAntent { get; set; }
+        public virtual DbSet<CrmOferteDetalii> CrmOferteDetalii { get; set; }
+        public virtual DbSet<CrmTipActiune> crmTipActiune { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -920,6 +924,214 @@ namespace ApiDisertatie.DataLayer
                     .WithMany(p => p.CrmParteneris)
                     .HasForeignKey(d => d.TaraId)
                     .HasConstraintName("fk_ds_crm_parteneri_tara_id");
+            });
+
+            modelBuilder.Entity<CrmActiuni>(entity =>
+            {
+                entity.HasKey(e => e.IdActiune)
+                    .HasName("pk_crm_actiuni");
+
+                entity.ToTable("crm_actiuni");
+
+                entity.Property(e => e.IdActiune).HasColumnName("id_actiune");
+
+                entity.Property(e => e.DataInceput).HasColumnName("data_inceput");
+
+                entity.Property(e => e.DataSfarsit).HasColumnName("data_sfarsit");
+
+                entity.Property(e => e.Descriere).HasColumnName("descriere");
+
+                entity.Property(e => e.EFinalizata)
+                    .HasColumnName("e_finalizata")
+                    .HasDefaultValueSql("false");
+
+                entity.Property(e => e.InDate)
+                    .HasColumnType("timestamp(6) without time zone")
+                    .HasColumnName("in_date")
+                    .HasDefaultValueSql("now()");
+
+                entity.Property(e => e.InUserId)
+                    .HasMaxLength(150)
+                    .HasColumnName("in_user_id")
+                    .HasDefaultValueSql("\"current_user\"()");
+
+                entity.Property(e => e.LeadId).HasColumnName("lead_id");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("timestamp(6) without time zone")
+                    .HasColumnName("mod_date");
+
+                entity.Property(e => e.ModUserId)
+                    .HasMaxLength(150)
+                    .HasColumnName("mod_user_id");
+
+                entity.Property(e => e.OpportunityId).HasColumnName("opportunity_id");
+
+                entity.Property(e => e.TipActiuneId).HasColumnName("tip_actiune_id");
+
+                entity.HasOne(d => d.TipActiune)
+                .WithMany()
+                .HasForeignKey(d => d.TipActiuneId)
+                .HasConstraintName("fk_crm_actiuni_crm_tip_actiuni");
+
+                entity.HasOne(d => d.Lead)
+                .WithMany()
+                .HasForeignKey(d => d.LeadId)
+                .HasConstraintName("fk_crm_actiuni_leads");
+
+                entity.HasOne(d => d.Opportunity)
+                    .WithMany()
+                    .HasForeignKey(d => d.OpportunityId)
+                    .HasConstraintName("fk_crm_actiuni_opportunities");
+            });
+
+            modelBuilder.Entity<CrmTipActiune>(entity =>
+            {
+                entity.HasKey(e => e.IdTipActiune)
+                    .HasName("pk_crm_tip_actiune");
+
+                entity.ToTable("crm_tip_actiune");
+
+                entity.HasIndex(e => e.TipActiune, "uk_crm_tip_actiune_tip_actiune")
+                    .IsUnique();
+
+                entity.Property(e => e.IdTipActiune).HasColumnName("id_tip_actiune");
+
+                entity.Property(e => e.InDate)
+                    .HasColumnType("timestamp(6) without time zone")
+                    .HasColumnName("in_date")
+                    .HasDefaultValueSql("now()");
+
+                entity.Property(e => e.InUserId)
+                    .HasMaxLength(150)
+                    .HasColumnName("in_user_id")
+                    .HasDefaultValueSql("\"current_user\"()");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("timestamp(6) without time zone")
+                    .HasColumnName("mod_date");
+
+                entity.Property(e => e.ModUserId)
+                    .HasMaxLength(150)
+                    .HasColumnName("mod_user_id");
+
+                entity.Property(e => e.TipActiune)
+                    .HasMaxLength(255)
+                    .HasColumnName("tip_actiune");
+            });
+
+            modelBuilder.Entity<CrmOferteAntent>(entity =>
+            {
+                entity.HasKey(e => e.IdOfertaAntent)
+                    .HasName("pk_crm_oferte_antent");
+
+                entity.ToTable("crm_oferte_antent");
+
+                entity.Property(e => e.IdOfertaAntent).HasColumnName("id_oferta_antent");
+
+                entity.Property(e => e.DataEmiterii)
+                    .HasColumnType("timestamp(6) without time zone")
+                    .HasColumnName("data_emiterii")
+                    .HasDefaultValueSql("now()");
+
+                entity.Property(e => e.DataExpirarii)
+                    .HasColumnType("timestamp(6) without time zone")
+                    .HasColumnName("data_expirarii")
+                    .HasDefaultValueSql("now()");
+
+                entity.Property(e => e.FurnizorBanca)
+                    .HasMaxLength(255)
+                    .HasColumnName("furnizor_banca");
+
+                entity.Property(e => e.FurnizorCif)
+                    .HasMaxLength(255)
+                    .HasColumnName("furnizor_cif");
+
+                entity.Property(e => e.FurnizorCont)
+                    .HasMaxLength(255)
+                    .HasColumnName("furnizor_cont");
+
+                entity.Property(e => e.FurnizorNrRegCom)
+                    .HasMaxLength(255)
+                    .HasColumnName("furnizor_nr_reg_com");
+
+                entity.Property(e => e.FurnizorNume)
+                    .HasMaxLength(255)
+                    .HasColumnName("furnizor_nume");
+
+                entity.Property(e => e.InDate)
+                    .HasColumnType("timestamp(6) without time zone")
+                    .HasColumnName("in_date")
+                    .HasDefaultValueSql("now()");
+
+                entity.Property(e => e.InUserId)
+                    .HasMaxLength(150)
+                    .HasColumnName("in_user_id")
+                    .HasDefaultValueSql("\"current_user\"()");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("timestamp(6) without time zone")
+                    .HasColumnName("mod_date");
+
+                entity.Property(e => e.ModUserId)
+                    .HasMaxLength(150)
+                    .HasColumnName("mod_user_id");
+
+                entity.Property(e => e.OfertaAcceptata).HasColumnName("oferta_acceptata");
+
+                entity.Property(e => e.OfertaRespinsa).HasColumnName("oferta_respinsa");
+
+                entity.Property(e => e.OpportunityId).HasColumnName("opportunity_id");
+
+                entity.Property(e => e.PartenerId).HasColumnName("partener_id");
+            });
+
+            modelBuilder.Entity<CrmOferteDetalii>(entity =>
+            {
+                entity.HasKey(e => e.IdOfertaDetalii)
+                    .HasName("pk_crm_oferte_detalii");
+
+                entity.ToTable("crm_oferte_detalii");
+
+                entity.Property(e => e.IdOfertaDetalii).HasColumnName("id_oferta_detalii");
+
+                entity.Property(e => e.ArticolId).HasColumnName("articol_id");
+
+                entity.Property(e => e.Cantitate).HasColumnName("cantitate");
+
+                entity.Property(e => e.InDate)
+                    .HasColumnType("timestamp(6) without time zone")
+                    .HasColumnName("in_date")
+                    .HasDefaultValueSql("now()");
+
+                entity.Property(e => e.InUserId)
+                    .HasMaxLength(150)
+                    .HasColumnName("in_user_id")
+                    .HasDefaultValueSql("\"current_user\"()");
+
+                entity.Property(e => e.ModDate)
+                    .HasColumnType("timestamp(6) without time zone")
+                    .HasColumnName("mod_date");
+
+                entity.Property(e => e.ModUserId)
+                    .HasMaxLength(150)
+                    .HasColumnName("mod_user_id");
+
+                entity.Property(e => e.OfertaAntentId).HasColumnName("oferta_antent_id");
+
+                entity.Property(e => e.PretTotalNet)
+                    .HasColumnType("money")
+                    .HasColumnName("pret_total_net");
+
+                entity.Property(e => e.PretUnitar)
+                    .HasColumnType("money")
+                    .HasColumnName("pret_unitar");
+
+                entity.HasOne(d => d.OfertaAntent)
+                    .WithMany(p => p.CrmOferteDetaliis)
+                    .HasForeignKey(d => d.OfertaAntentId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_crm_oferte_detalii_crm_oferte_antent");
             });
 
             OnModelCreatingPartial(modelBuilder);

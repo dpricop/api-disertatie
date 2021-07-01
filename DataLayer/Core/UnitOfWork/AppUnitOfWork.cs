@@ -24,6 +24,10 @@ namespace ApiDisertatie.DataLayer.UnitOfWork
 		public CrmOpportunityStatusRepo crmOpportunityStatusRepo { get; set; }
 		public CrmPartenerContacteRepo crmPartenerContacteRepo { get; set; }
 		public CrmParteneriRepo crmParteneriRepo { get; set; }
+		public CrmActiuniRepo crmActiuniRepo { get; set; }
+		public CrmOferteAntentRepo crmOferteAntentRepo { get; set; }
+		public CrmOferteDetaliiRepo crmOferteDetaliiRepo { get; set; }
+		public CrmTipActiuneRepo crmTipActiuneRepo { get; set; }
 		#endregion
 
 		#region - Constructor
@@ -47,6 +51,10 @@ namespace ApiDisertatie.DataLayer.UnitOfWork
 			crmOpportunityStatusRepo = new CrmOpportunityStatusRepo(dbContext);
 			crmPartenerContacteRepo = new CrmPartenerContacteRepo(dbContext);
 			crmParteneriRepo = new CrmParteneriRepo(dbContext);
+			crmActiuniRepo = new CrmActiuniRepo(dbContext);
+			crmOferteAntentRepo = new CrmOferteAntentRepo(dbContext);
+			crmOferteDetaliiRepo = new CrmOferteDetaliiRepo(dbContext);
+			crmTipActiuneRepo = new CrmTipActiuneRepo(dbContext);
 		}
 
 		#endregion

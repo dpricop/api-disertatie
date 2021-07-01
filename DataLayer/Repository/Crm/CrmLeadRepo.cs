@@ -15,7 +15,7 @@ namespace ApiDisertatie.DataLayer.Repository
         }
         public virtual IQueryable<CrmLeadDropDown> GetAllDropDown()
         {
-            return this.GetAll().Select(s => new CrmLeadDropDown() { IdLead = s.IdLead, LeadNume = s.LeadNume}).AsQueryable();
+            return this.GetAll().Select(s => new CrmLeadDropDown() { IdLead = s.IdLead, LeadDescriere = s.LeadDescriere }).AsQueryable();
         }
 
         public virtual IQueryable<CrmLead> GetAllTable()
