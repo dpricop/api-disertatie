@@ -1084,6 +1084,11 @@ namespace ApiDisertatie.DataLayer
                 entity.Property(e => e.OpportunityId).HasColumnName("opportunity_id");
 
                 entity.Property(e => e.PartenerId).HasColumnName("partener_id");
+
+                entity.HasOne(d => d.Partener)
+                    .WithMany()
+                    .HasForeignKey(d => d.PartenerId)
+                    .HasConstraintName("fk_crm_oferte_antent_parteneri");
             });
 
             modelBuilder.Entity<CrmOferteDetalii>(entity =>
