@@ -19,9 +19,31 @@ namespace ApiDisertatie.DataLayer.Repository
             return this.GetAll().Select(s => new CrmOpportunityDropDown() { IdOpportunity = s.IdOpportunity,OppDescriere = s.OppDescriere }).AsQueryable();
         }
 
-        public virtual IQueryable<CrmOpportunity> GetAllTable()
+        public virtual IQueryable<CrmOpportunityTable> GetAllTable()
         {
-            return this.GetAll();
+            return this.GetAll().Select(c => new CrmOpportunityTable()
+            {
+                IdOpportunity = c.IdOpportunity,
+                OppDescriere = c.OppDescriere,
+                Probabilitatea = c.Probabilitatea,
+                Suma = c.Suma,
+                HotOrNot = c.HotOrNot,
+                Competitori = c.Competitori,
+                PartenerId = c.PartenerId,
+                NumePartener = c.Partener.NumePartener,
+                PartenerContactId = c.PartenerContactId,
+                PartenerContact = $"{c.PartenerContact.NumeContact} {c.PartenerContact.PrenumeContact}",
+                StatusId = c.StatusId,
+                StatusNume = c.Status.StatusNume,
+                FazaId = c.FazaId,
+                FazaNume = c.Faza.FazaNume,
+                MotivId = c.MotivId,
+                Motiv = c.Motiv.Motiv,
+                InUserId = c.InUserId,
+                InDate = c.InDate,
+                ModUserId = c.ModUserId,
+                ModDate = c.ModDate,
+            });
         }
     }
 }
