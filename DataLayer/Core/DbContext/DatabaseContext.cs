@@ -1137,6 +1137,8 @@ namespace ApiDisertatie.DataLayer
                     .HasForeignKey(d => d.OfertaAntentId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_crm_oferte_detalii_crm_oferte_antent");
+
+                entity.HasOne(e => e.Articole).WithMany().HasForeignKey(c => c.ArticolId).HasConstraintName("fk_crm_oferte_detalii_articole");
             });
 
             OnModelCreatingPartial(modelBuilder);

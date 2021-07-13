@@ -13,5 +13,11 @@ namespace ApiDisertatie.DataLayer.Repository
         {
             dbContext = context;
         }
+
+        public IQueryable<CrmTipActiune> GetAllTable() {
+
+            return this.GetAll().OrderByDescending(c => c.IdTipActiune);
+        
+        }
     }
 }

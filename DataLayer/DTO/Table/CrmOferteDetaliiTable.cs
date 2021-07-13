@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ApiDisertatie.DataLayer.Models
 {
-    public partial class CrmOferteDetalii
+    public partial class CrmOferteDetaliiTable
     {
         public int IdOfertaDetalii { get; set; }
         public int OfertaAntentId { get; set; }
@@ -15,8 +15,8 @@ namespace ApiDisertatie.DataLayer.Models
         public DateTime? InDate { get; set; }
         public string ModUserId { get; set; }
         public DateTime? ModDate { get; set; }
-
         public virtual CrmArticole Articole { get; set; }
-        public virtual CrmOferteAntent OfertaAntent { get; set; }
+
+
     }
 }
